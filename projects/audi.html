@@ -1,0 +1,782 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js desktop" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<title>Audi driving experience</title>
+<meta name="description" content="">
+<meta name="author" content="Prashant Sani">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="stylesheet" href="audi/css/style.css">
+<script src="audi/js/jQuery.js"></script>
+<script src="audi/js/init.js"></script>
+<style id="dynnamCSS"></style>
+<script>
+	// function:
+	(function(){
+		var contentObject,
+			ajaxURL,
+			currURL = window.location.href;
+
+		if(currURL.indexOf('#')===-1){
+			ajaxURL = window.location.href  + 'audi/index.php/manage/getAllJson'
+		}else{
+			currURL = window.location.href.substring(0,window.location.href.indexOf('#'))
+			ajaxURL = currURL+ 'audi/index.php/manage/getAllJson'
+		}
+
+
+
+		ajaxURL = 'content.json';
+
+		$.ajax({
+			url:ajaxURL,
+			method: "get",
+			async: false,
+			success:function(data){
+				window.contentObject=data;
+			},
+			error: function(){
+				alert('corrupt json or json 404')
+			}
+		});
+
+
+		function ChangeDynamCSS(w){
+			var winHeightAdjusted= winHeight;
+
+			if(aspectRatio<1){
+				winHeightAdjusted= winHeight/1.7
+			}
+
+			w.headerOffset = Math.floor(winHeightAdjusted*0.11)
+
+			if(w.headerOffset>75){
+				w.headerOffset=75
+			}else if(w.headerOffset<60){
+				w.headerOffset=60
+			}
+
+			//Insructor
+			var instructorsStr,
+				adjustedInstructorMargin = Math.ceil((winHeightAdjusted*82)/944) * (w.aspectRatio/1.5);
+
+			var instructorHeight = Math.ceil(winWidth*944/1440);
+				instructorsStr = '#instructorsSec{height:'+instructorHeight+'px; margin:-'+adjustedInstructorMargin+'px auto} ';
+
+
+
+			var str1 = '.PgHeightSec{height:'+winHeightAdjusted+'px} ',
+				str2 = '.eventsSec{height:'+Math.floor(winHeightAdjusted*0.93)+'px} ',
+				str3 = ' #fullScrGallery{height:'+Math.floor(winHeightAdjusted-60)+'px!important} ',
+				str4 = 'html .registerBGWrap{height:'+Math.floor(winHeightAdjusted*1.05)+'px} ',
+				str5 = 'html .fleetBG{height:'+(winHeightAdjusted-60)+'px;}',
+				str6 = 'html .fleetSec{height:'+(winHeightAdjusted-60)+'px;} ',
+				str7 = '#preloader {height:'+winHeight+'px} ';
+
+			$('#dynnamCSS').html(str1+str2+str3+str4+str5+str6+str7+instructorsStr);
+
+
+		}
+
+		ChangeDynamCSS(window)
+
+		$(window).resize(function() {
+			winWidth = document.documentElement.clientWidth;
+			winHeight = document.documentElement.clientHeight;
+
+			ChangeDynamCSS(window)
+		});
+	})();
+
+
+
+	</script>
+<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<script src="http://s3.amazonaws.com/nwapi/nwmatcher/nwmatcher-1.2.5-min.js"></script>
+		<script src="js/selectivizr.js"></script>
+	<![endif]-->
+</head>
+<body>
+
+<!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
+<noscript><p class="warning"><a href="http://www.enable-javascript.com/" target="_blank">To enjoy the full website, first enable JavaScript</a></p></noscript>
+<div id="preloader">
+
+<div id="preloaderProgressPercent">0%</div>
+</div>
+<div class="pageContain">
+<header>
+<div class="wrap">
+<h1 class="logo">
+<a href="audi.html#home" class="SlideLink activeNav">
+<img src="audi/images/logo.png" alt="logo">
+</a>
+</h1>
+<nav class="nav" id="nav">
+<ul class="clearfix">
+<li><a href="audi.html#home" class="SlideLink activeNav">Home</a></li>
+<li class="eventDDWrap"><a href="audi.html#sportsCarExperience" class="SlideLink eventsLink">Events</a>
+<ul class="eventDD" id="eventDD">
+<li><a href="audi.html#sportsCarExperience" class="SlideLink">Audi sportscar experience</a></li>
+<li><a href="audi.html#weekender" class="SlideLink">Audi Weekender</a></li>
+<li><a href="audi.html#QDrive" class="SlideLink">Q drive</a></li>
+<li><a href="audi.html#womensPowerDrive" class="SlideLink">Women's Power Drive</a></li>
+</ul>
+</li>
+<li><a href="audi.html#instructors" class="SlideLink">Instructors</a></li>
+<li><a href="audi.html#fleet" class="SlideLink">Fleet</a></li>
+
+<li><a href="audi.html#gallery" class="SlideLink">Gallery</a></li>
+<li><a href="audi.html#contact" class="SlideLink">Contact</a></li>
+<li id="navRegBtn"><a href="audi.html#register" class="SlideLink">Register</a></li>
+</ul>
+</nav>
+</div>
+</header>
+<section id="home" class="PgHeightSec sec homeSec" data-section="home">
+<div id="homeSecContent">
+<h1></h1>
+<h2></h2>
+<a class="homeScrRegBtn styledLink SlideLink" href="audi.html#register"><span>Register Now</span></a>
+</div>
+
+<div id="homeSecBG"></div>
+<script>
+
+							$('#homeSecContent h1').html(contentObject['HomePgHeading']);
+							$('#homeSecContent h2').html(contentObject['homePgSubHead']);
+							$('#homeSecBG').css('background-image','url('+contentObject['homePgImage']+')');
+
+		    				if(!isMobile.any()){
+								if(contentObject['homePgVideo']!=='' && contentObject['homePgVideo']!==undefined){
+									var script=document.createElement('script');
+									script.type='text/javascript';
+									script.src='js/video.js';
+
+									$('#home').append(script)
+
+								}
+							}
+
+						</script>
+<script type="text/"></script>
+</section>
+<div class="parallaxBGWrap" id="parallaxHome">
+<img class="parallaxBG parallaxHomeBG" src="audi/images/red_1.jpg" alt="" data-0="transform:scale(0.9) translate3d(0px,0%,0)" data-bottom-top="transform:scale(0.9) translate3d(0px,0%,0)" data-100-top="transform:scale(1)  translate3d(0,-40%,0)">
+</div>
+
+
+<section id="sportsCarExperience" class="sec sportsCarExperienceSec eventsSec" data-section="sportsCarExperience">
+<div class="wrap clearfix">
+<div class="mainCol1" data-0="transform: translate3d(0px,30%,0)" data-bottom-top="transform: translate3d(0px,30%,0)" data-100-top="transform: translate3d(0,0%,0)">
+<h1><span>Audi</span> sportscar experience </h1>
+<h2></h2>
+<div class="leftModulesWrap">
+<div class="leftModules leftModulesVis leftDetailModule">
+<img src="audi/images/track.png" alt="">
+</div>
+<div class="leftModules leftVenueModule">
+<canvas id="sportsCarExperienceCanvas" width="466" height="466" style=""></canvas>
+</div>
+</div>
+</div>
+<div class="mainCol2" data-0="transform: translate3d(0px,-30%,0)" data-bottom-top="transform: translate3d(0px,-30%,0)" data-100-top="transform: translate3d(0,0%,0)">
+<div class="tabBtnWrap clearfix">
+<button class="buttonActivated" data-show="leftDetailModule" data-codeEval='createjs.Ticker.removeEventListener("tick", sportsCarStage);'><span>details</span></button>
+<button class="" data-show="leftVenueModule" data-codeEval='createjs.Ticker.addEventListener("tick", sportsCarStage);'><span>dates &amp; venues</span></button>
+</div>
+<div class="tabContentWrap">
+<div id="sportsCarDetails" class="tabContent tabContentVis sportsCarDetails rightDetialModule"></div>
+<div id="sportsCarDtVenue" class="tabContent sportsCarDtVenue rightVenueModule">
+<ul class="content"></ul>
+<div class="page_navigation"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="sportsCarBG SecBG"></div>
+</section>
+<section id="sportsCarExperienceVideo" class="PgHeightSec sec sportsCarExperienceVideoSec" data-section="sportsCarExperience">
+<div class="videoOverlay"></div>
+<button class="playBtn"></button>
+<div class="videoStartBox"></div>
+<div class="videoProgress"></div>
+<div id="sportsCarExperienceiFrame"></div>
+<div id="sportsCarVideoProgress"><div></div></div>
+</section>
+<div class="parallaxBGWrap" id="parallaxSportsCarExp">
+<img class="parallaxBG" src="audi/images/red_2.jpg" alt="" data-0="transform:scale(1.3)  translateY(10%)" data-bottom-top="transform:scale(1.3)  translateY(10%)" data-top-bottom="transform:scale(1) translateY(-20%)">
+</div>
+
+
+<section id="weekender" class="sec weekenderSec eventsSec" data-section="weekender">
+<div class="wrap clearfix">
+<div class="mainCol1" ata-0="transform: translate3d(0px,30%,0)" data-bottom-top="transform: translate3d(0px,30%,0)" data-100-top="transform: translate3d(0,0%,0)">
+<h1><span>Audi</span> Weekender</h1>
+<h2></h2>
+<div class="leftModulesWrap">
+<div class="leftModules leftModulesVis leftDetailModule">
+<div id="weekenderSliderWrap">
+<div class="leftDetailModuleRhombusWrap">
+<div class="leftDetailModuleRhombus">
+<div class="weekenderSlider"></div>
+</div>
+</div>
+<div id="weekenderNext">Next</div>
+<div id="weekenderPrev">Prev</div>
+</div>
+</div>
+<div class="leftModules leftVenueModule">
+<canvas id="weekenderCanvas" width="466" height="466" style="" class=""></canvas>
+</div>
+</div>
+</div>
+<div class="mainCol2" data-0="transform: translate3d(0px,-30%,0)" data-bottom-top="transform: translate3d(0px,-30%,0)" data-100-top="transform: translate3d(0,0%,0)">
+<div class="tabBtnWrap clearfix">
+<button class="buttonActivated" data-show="leftDetailModule" data-codeEval='createjs.Ticker.removeEventListener("tick", weekenderStage);'><span>details</span></button>
+<button class="" data-show="leftVenueModule" data-codeEval='createjs.Ticker.addEventListener("tick", weekenderStage);'><span>dates &amp; venues</span></button>
+</div>
+<div class="tabContentWrap">
+<div id="weekenderDetails" class="tabContent tabContentVis weekenderDetails rightDetialModule"></div>
+<div id="weekenderDtVenue" class="tabContent weekenderDtVenue rightVenueModule">
+<ul class="content"></ul>
+<div class="page_navigation"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="weekenderBG SecBG"></div>
+</section>
+<section id="weekenderVideo" class="PgHeightSec sec weekenderVideoSec" data-section="weekender">
+<div class="videoOverlay"></div>
+<button class="playBtn"></button>
+<div class="videoStartBox"></div>
+<div class="videoProgress"></div>
+<div id="weekenderVideoiFrame"></div>
+<div id="weekenderVideoProgress"><div></div></div>
+</section>
+<div class="parallaxBGWrap" id="parallaxWeekender">
+<img class="parallaxBG" src="audi/images/red_3.jpg" alt="" data-0="transform:scale(1.3)  translate3d(-10%,0%,0)" data-bottom-top="transform:scale(1.3)  translate3d(-10%,0%,0)" data-top-bottom="transform:scale(1) translate3d(0,-5%,0)">
+</div>
+
+
+<section id="QDrive" class="sec QDriveSec eventsSec" data-section="QDrive">
+<div class="wrap clearfix">
+<div class="mainCol1" ata-0="transform: translate3d(0px,30%,0)" data-bottom-top="transform: translate3d(0px,30%,0)" data-100-top="transform: translate3d(0,0%,0)">
+<h1>Q drive</h1>
+<h2></h2>
+<div class="leftModulesWrap">
+<div class="leftModules leftModulesVis leftDetailModule">
+<div id="qDriveSliderWrap">
+<div class="leftDetailModuleRhombusWrap">
+<div class="leftDetailModuleRhombus">
+<div class="qDriveSlider"></div>
+</div>
+</div>
+<div id="qDriveNext">Next</div>
+<div id="qDrivePrev">Prev</div>
+</div>
+</div>
+<div class="leftModules leftVenueModule">
+<canvas id="qDriveCanvas" width="466" height="466" style=""></canvas>
+</div>
+</div>
+</div>
+<div class="mainCol2" data-0="transform: translate3d(0px,-30%,0)" data-bottom-top="transform: translate3d(0px,-30%,0)" data-100-top="transform: translate3d(0,0%,0)">
+<div class="tabBtnWrap clearfix">
+<button class="buttonActivated" data-show="leftDetailModule" data-codeEval='createjs.Ticker.removeEventListener("tick", qDriveStage);'><span>details</span></button>
+<button class="" data-show="leftVenueModule" data-codeEval='createjs.Ticker.addEventListener("tick", qDriveStage);'><span>dates &amp; venues</span></button>
+</div>
+<div class="tabContentWrap">
+<div id="qDriveDetails" class="tabContent tabContentVis qDriveDetails rightDetialModule"></div>
+<div id="qDriveDtVenue" class="tabContent qDriveDtVenue rightVenueModule">
+<ul class="content"></ul>
+<div class="page_navigation"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="qDriveBG SecBG"></div>
+</section>
+<section id="QDriveVideo" class="PgHeightSec sec QDriveVideoSec" data-section="QDrive">
+<div class="videoOverlay"></div>
+<button class="playBtn"></button>
+<div class="videoStartBox"></div>
+<div class="videoProgress"></div>
+<div id="QDriveVideoiFrame"></div>
+<div id="QDriveVideoProgress"><div></div></div>
+</section>
+<div class="parallaxBGWrap" id="parallaxQDrive">
+<img class="parallaxBG" src="audi/images/red_4.jpg" alt="" data-0="transform:scale(0.9)  translate3d(-5%,0%,0)" data-bottom-top="transform:scale(0.9)  translate3d(-5%,0%,0)" data-top-bottom="transform:scale(1) translate3d(0,-5%,0)">
+</div>
+
+
+<section id="womensPowerDrive" class="sec womensDriveSec eventsSec" data-section="womensPowerDrive">
+<div class="wrap clearfix">
+<div class="mainCol1" ata-0="transform: translate3d(0px,30%,0)" data-bottom-top="transform: translate3d(0px,30%,0)" data-100-top="transform: translate3d(0,0%,0)">
+<h1>Women's Power Drive</h1>
+<h2></h2>
+<div class="leftModulesWrap">
+<div class="leftModules leftModulesVis leftDetailModule">
+<div id="womenSliderWrap">
+<div class="leftDetailModuleRhombusWrap">
+<div class="leftDetailModuleRhombus">
+<div class="womenSlider"></div>
+</div>
+</div>
+<div id="womenSliderNext">Next</div>
+<div id="womenSliderPrev">Prev</div>
+</div>
+</div>
+<div class="leftModules leftVenueModule">
+<canvas id="womensDriveCanvas" width="466" height="466" style=""></canvas>
+</div>
+</div>
+</div>
+<div class="mainCol2" data-0="transform: translate3d(0px,-30%,0)" data-bottom-top="transform: translate3d(0px,-30%,0)" data-100-top="transform: translate3d(0,0%,0)">
+<div class="tabBtnWrap clearfix">
+<button class="buttonActivated" data-show="leftDetailModule" data-codeEval='createjs.Ticker.removeEventListener("tick", womensDriveStage);'><span>details</span></button>
+<button class="" data-show="leftVenueModule" data-codeEval='createjs.Ticker.addEventListener("tick", womensDriveStage);'><span>dates &amp; venues</span></button>
+</div>
+<div class="tabContentWrap">
+<div id="womensDriveDetails" class="tabContent tabContentVis womensDriveDetails rightDetialModule"></div>
+<div id="womensDriveDtVenue" class="tabContent womensDriveDtVenue rightVenueModule">
+<ul class="content"></ul>
+<div class="page_navigation"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="womensDriveBG SecBG"></div>
+</section>
+<section id="womensDriveVideo" class="PgHeightSec sec womensDriveVideoSec" data-section="womensPowerDrive">
+<div class="videoOverlay"></div>
+<button class="playBtn"></button>
+<div class="videoStartBox"></div>
+<div class="videoProgress"></div>
+<div id="womenVideoiFrame"></div>
+<div id="womensDriveProgress"><div></div></div>
+</section>
+<div class="parallaxBGWrap" id="parallaxWomensDrive">
+<img class="parallaxBG" src="audi/images/red_2.jpg" alt="" data-0="transform:scale(1.3)  translateY(50px)" data-bottom-top="transform:scale(1.3)  translateY(50px)" data-top-bottom="transform:scale(1) translateY(-110px)">
+</div>
+
+
+<script>
+						(function(){
+							var $weekenderSlider = $('.weekenderSlider'),
+								$qDriveSlider = $('.qDriveSlider'),
+								$womenSlider = $('.womenSlider');
+
+							function addSliderImg(obj,$ele){
+
+								for(var x=0 ; x<obj.length; x++) {
+
+									var $div = $('<div></div>'),
+										$img = $('<img />');
+
+									$img.attr({
+										alt:"",
+										src:obj[x]
+									});
+
+									$div.append($img);
+									$ele.append($div)
+								}
+
+							}
+
+
+							addSliderImg(contentObject['AudiQDrive']['sliderImages'],$qDriveSlider);
+							addSliderImg(contentObject['AudiWeekender']['sliderImages'],$weekenderSlider);
+							addSliderImg(contentObject['AudiWomensPowerDrive']['sliderImages'],$womenSlider);
+
+
+
+							var $weekenderDtVenue = $('.weekenderDtVenue ul'),
+								$sportsCarDtVenue = $('.sportsCarDtVenue ul'),
+								$qDriveDtVenue = $('.qDriveDtVenue ul'),
+								$womensDtVenue = $('.womensDriveDtVenue ul');
+
+
+							function addDtVenue(obj,$ele){
+
+
+								obj['canvasDtCity']=[];
+
+								for(var m=0 ; m<obj['datesVenue'].length; m++) {
+
+									for(var s=0 ; s<obj['datesVenue'][m]['venue'].length; s++) {
+
+										var $dtVenueBox = $('<li></li>'),
+											$dtBox = $('<span></span>'),
+											$VenueBox = $('<span></span>');
+
+										$dtBox.addClass('dtBox').html(obj['datesVenue'][m]['date']);
+										var $span = $('<span></span>');
+										$span.html(obj['datesVenue'][m]['venue'][s])
+										$VenueBox.append($span);
+
+										if(s===0){
+											$dtVenueBox.addClass('firstRow')
+										}
+
+										$VenueBox.addClass('VenueBox');
+
+										$dtVenueBox.addClass('dtVenueBox clearfix').append($dtBox)
+
+										$dtVenueBox.attr('data-cityName',obj['datesVenue'][m]['venue'][0]).attr('data-city',obj['datesVenue'][m]['code']);
+										$dtVenueBox.append($VenueBox)
+
+										$ele.append($dtVenueBox);
+
+
+
+										$ele.append($dtVenueBox);
+
+										obj['canvasDtCity'].push({
+											'date':obj['datesVenue'][m]['mapdate'],
+											'city':obj['datesVenue'][m]['venue'][s]['cityName'],
+											'code' :obj['datesVenue'][m]['code']
+										});
+
+										if((s+1)===obj['datesVenue'][m]['venue'].length ){
+											$dtVenueBox.css('border-bottom','1px solid #cecece');
+										}
+
+										if(s===0){
+											if(obj['datesVenue'][m]['venue'].length!==1){
+												$dtBox.css('top',0.8*obj['datesVenue'][m]['venue'].length +'em');
+											}
+										}
+
+									}
+
+								}
+
+							}
+
+
+
+
+							addDtVenue(contentObject['AudiWeekender'],$weekenderDtVenue);
+							addDtVenue(contentObject['AudiSportsCarExperience'],$sportsCarDtVenue);
+							addDtVenue(contentObject['AudiQDrive'],$qDriveDtVenue);
+							addDtVenue(contentObject['AudiWomensPowerDrive'],$womensDtVenue );
+
+
+							//Text
+							$('.sportsCarExperienceSec .mainCol1 h2').html(contentObject['AudiSportsCarExperience']['subHeading']);
+							$('#sportsCarDetails').html(contentObject['AudiSportsCarExperience']['details']);
+
+							$('.weekenderSec .mainCol1 h2').html(contentObject['AudiWeekender']['subHeading']);
+							$('#weekenderDetails').html(contentObject['AudiWeekender']['details']);
+
+							$('.QDriveSec .mainCol1 h2').html(contentObject['AudiQDrive']['subHeading']);
+							$('#qDriveDetails').html(contentObject['AudiQDrive']['details']);
+
+							$('.womensDriveSec .mainCol1 h2').html(contentObject['AudiWomensPowerDrive']['subHeading']);
+							$('#womensDriveDetails').html(contentObject['AudiWomensPowerDrive']['details']);
+
+
+							//Events
+							$('.sportsCarExperienceVideoSec .videoOverlay').css('background-image','url('+contentObject['AudiSportsCarExperience']['videoBG']+')');
+							$('.weekenderVideoSec .videoOverlay').css('background-image','url('+contentObject['AudiWeekender']['videoBG']+')');
+							$('.QDriveVideoSec .videoOverlay').css('background-image','url('+contentObject['AudiQDrive']['videoBG']+')');
+							$('.womensDriveVideoSec .videoOverlay').css('background-image','url('+contentObject['AudiWomensPowerDrive']['videoBG']+')');
+
+
+						})();
+
+					</script>
+
+<section id="instructorsSec" class="instructorsSec sec" data-section="instructors">
+<div class="wrap" id="instructors">
+<h1><span>Audi</span> Instructors<br>Speak</h1>
+<div class="instructorThumbCarousel" id="instructorThumbCarousel"></div>
+<div class="instructorInfoCarousel" id="instructorInfoCarousel"></div>
+<div id="instructorDotsWrap"></div>
+</div>
+<div class="instructorsBG SecBG" id="instructorsBG"></div>
+</section>
+<script>
+						// Instructors content
+						(function(){
+							var $instructorThumbCarousel = $('#instructorThumbCarousel'),
+								$instructorInfoCarousel = $('#instructorInfoCarousel'),
+								$instructorDotsWrap = $('#instructorDotsWrap');
+
+							for(var a =0 ; a<contentObject['AudiInstructors'].length; a++) {
+								//Thumb
+								var $instructorThumbImg = $('<img />'),
+									$thumbOverlay = $('<div></div>'),
+									$instructorThumbDiv = $('<div></div>');
+
+
+								$instructorThumbImg.attr({
+									'alt':contentObject['AudiInstructors'][a]['name'],
+									'class':'instructorThumbImg',
+									'src':contentObject['AudiInstructors'][a]['thumb'],
+									'data-index':a,
+								});
+								$thumbOverlay.attr('class','thumbOverlay');
+
+								$instructorThumbDiv.append($instructorThumbImg).append($thumbOverlay).addClass('instructorThumbDiv').attr('data-thumbIndex',a);
+								$instructorThumbCarousel.append($instructorThumbDiv)
+
+
+								//Info
+								var	$instructorDetDiv = $('<div></div>'),
+									$article = $('<article></article>'),
+									$figure = $('<figure></figure>'),
+									$instructorBigImg = $('<img />'),
+									$instructorInfo = $('<div></div>'),
+									$instructorName = $('<h1></h1>'),
+									$instructorDet = $('<div></div>');
+									$instructorDot = $('<div></div>');
+
+								$instructorBigImg.attr({
+									'src':contentObject['AudiInstructors'][a]['image'],
+									'alt':'',
+									'class':'instructorBigImg'
+								});
+								$figure.append($instructorBigImg);
+								$article.append($figure).addClass('clearfix');
+
+
+								$instructorName.addClass('instructorName firstWord').html(contentObject['AudiInstructors'][a]['name']);
+								$instructorName.wrapSpan(1);
+								$instructorDet.addClass('instructorDet').html(contentObject['AudiInstructors'][a]['desc']);
+								$instructorInfo.addClass('instructorInfo').append($instructorName).append($instructorDet);
+
+								$article.append($instructorInfo);
+
+
+								$instructorDetDiv.addClass('instructorDetDiv').append($article);
+								$instructorInfoCarousel.append($instructorDetDiv);
+
+								$instructorDot.addClass('instructorDot');
+								$instructorDotsWrap.append($instructorDot)
+							}
+						})();
+
+
+
+					</script>
+
+<div class="parallaxBGWrap" id="parallaxInstructors" data-section="fleet">
+<img class="parallaxBG" src="audi/images/red_5.jpg" alt="" data-0="transform:scale(1.1)  translate3d(0,-100px,0)" data-bottom-top="transform:scale(1.1)  translate3d(0,-100px,0)" data-top-bottom="transform:scale(1)  translate3d(0,0px,0)">
+</div>
+
+<section id="fleet" class="fleetSec sec" data-section="fleet" data-fleetIndex="">
+<div class="fleetBG" id="fleetBG"></div>
+<div class="fleetSliderWrap" id="fleetSliderWrap">
+<div id="fleetSlider" class="fleetSlider"></div>
+</div>
+<article class="wrap">
+<h1 id="fleetCarName">Audi <span class='highlighted'></span></h1>
+<div class="mainCol2" data-0="transform: translate3d(0px,150px,0)" data-bottom-top="transform: translate3d(0px,150px,0)" data-100-top="transform: translate3d(0,0px,0)">
+<div class="tabBtnWrap clearfix">
+<button class="buttonActivated" data-show="fleetDetails"><span>details</span></button>
+<button class="" data-show="fleetSpecification"><span>Specifications</span></button>
+</div>
+<div class="tabContentWrap">
+<div id="fleetDetails" class="tabContent tabContentVis fleetDetails"></div>
+<div id="fleetSpecification" class="tabContent fleetSpecification">
+<div id="fleetRight">
+<div id="fleetEngine" class="fleetRightRow"></div>
+<div id="fleetPowerOutput" class="fleetRightRow"></div>
+<div id="fleetTransmission" class="fleetRightRow"></div>
+<div id="fleetAcceleration" class="fleetRightRow"></div>
+</div>
+</div>
+</div>
+<button id="fleetGalleryOpen" class="styledBtn"><span>Gallery</span></button>
+</div> 
+<div id="fleetCar"></div>
+</article> 
+<script>
+							(function(){
+
+								var $fleetSlider = $('#fleetSlider');
+								for(var a =0 ; a<contentObject['AudiCars'].length; a++) {
+									var $div = $('<div></div>'),
+										$img = $('<img />');
+
+									$img.attr({
+										'src': contentObject['AudiCars'][a]['logo'],
+										'alt': '',
+										'data-index':a
+									});
+
+									$div.append($img);
+									$fleetSlider.append($div);
+
+								}
+							})();
+
+						</script>
+</section>
+<div class="parallaxBGWrap parallaxfleetSec" id="parallaxfleetSec">
+<img class="parallaxBG parallaxfleetBG" src="audi/images/red_6.jpg" alt="" data-0="transform:scale(1.2) translate3d(10px,-400px,0)" data-bottom-top="transform:scale(1.2) translate3d(10px,-400px,0)" data-top-bottom="transform:scale(1)  translate3d(0px,100px,0)">
+</div>
+<section id="fleetGalleryWrap" class="PgHeightSec fleetGalleryWrap animated" data-galleryIndex=''>
+<div id="fleetGalleryBack"></div>
+<div class="wrap animated">
+<div id="fleetGalleryProgress"><span id="fleetGalleryCurrImg"></span>/<span id="fleetGalleryTotalImgs"></span></div>
+<div id="fleetGallerySliderWrap" class="royalSlider rsUni"></div>
+<div id="fleetGalleryClose"><span></span></div>
+<div id="fleetGalleryCarNameWrap">
+<div id="fleetGalleryCarPrev"></div><div id="fleetGalleryCarNext"></div>
+<span class="highlighted">AUDI</span>
+<span id="fleetGalleryCarName"></span>
+</div>
+</div>
+</section>
+
+<section id="gallery" class="gallerySec sec PgHeightSec" data-section="gallery">
+
+<div class="galleryFilters wrap" id="galleryFilters">
+<button class="galleryFilter" data-galleryFilter="womensPowerDrive"><span>Women's Power Drive</span></button>
+<button class="galleryFilter" data-galleryFilter="QDrive"><span>Q drive</span></button>
+<button class="galleryFilter" data-galleryFilter="weekender"><span>Audi Weekender</span></button>
+<button class="galleryFilter" data-galleryFilter="sportsCarExperience"><span>Audi sportscar experience</span></button>
+<button class="galleryFilter galleryFilterActive" data-galleryFilter="All"><span>All</span></button>
+</div>
+<div id="fullScrGallery" class="fullScrGallery  royalSlider rsUni"></div>
+</section>
+<div class="parallaxBGWrap parallaxGallerySec" id="parallaxGallerySec">
+<img class="parallaxBG parallaxGalleryBG" src="audi/images/red_7.jpg" alt="" data-0="transform:scale(1.2) translate3d(0,300px,0)" data-bottom-top="transform:scale(1.2) translate3d(0,300px,0)" data-top-bottom="transform:scale(1)  translate3d(0px,50px,0)">
+</div>
+<script>
+						// function:
+						(function(){
+							var $fullScrGallery = $('#fullScrGallery');
+
+							window.addGalleryImgs= function (obj){
+								if($fullScrGallery.data('royalSlider')!=undefined){
+								    $fullScrGallery.data('royalSlider').destroy();
+								    $fullScrGallery.html('');
+								}
+
+								for(var a =0 ; a<obj.length; a++) {
+									var $a= $('<a></a>');
+
+									if(obj[a].indexOf('www.youtube.com')!=-1){
+
+									    var youTubeID= window.returnUTubeID(obj[a])
+
+									    $a.addClass('rsImg').attr({
+									        'data-rsVideo':'https://www.youtube.com/watch?v='+youTubeID,
+									        'href': 'https://img.youtube.com/vi/'+youTubeID+'/0.jpg'
+									    });
+									}
+									else{
+									    $a.addClass('rsImg').attr({
+									        'data-rsBigImg':obj[a],
+									        'href': obj[a]
+									    });
+
+									}
+
+									$fullScrGallery.append($a);
+
+
+								}
+
+							}
+
+							addGalleryImgs(contentObject['gallery']['sportsCarExperience']);
+							addGalleryImgs(contentObject['gallery']['weekender']);
+							addGalleryImgs(contentObject['gallery']['QDrive']);
+							addGalleryImgs(contentObject['gallery']['womensPowerDrive']);
+
+						})();
+
+					</script>
+
+<section id="register" class="registerSec sec" data-section="register">
+<div class="registerBGWrap">
+<div class="registerBG" data-0="transform: translate3d(0px,-30%,0)" data-bottom-top="transform: translate3d(0px,-30%,0)" data-top-bottom="transform: translate3d(0,0%,0)"></div>
+</div>
+<form onsubmit="return formValSubmit()" class="registerForm clearfix" id="registerForm" novalidate>
+<h1>Register</h1>
+<h2>For more information, kindly fill in your details.</h2>
+<div class="formLines formLineLeft"></div>
+<div class="formLines formLineRight"></div>
+<div class="formLines formLineTopLeft"></div>
+<div class="formLines formLineTopRight"></div>
+<div class="formLines formLineBottom"></div>
+<p class="clearfix">
+<label for="name">Name</label>:
+<input type="text" placeholder="" name="name" id="name" autocomplete="off" autocorrect="off" autocapitalize="on">
+<span class="formVal"></span>
+</p>
+<p class="clearfix">
+<label for="email">Email</label>:
+<input type="email" placeholder="" name="email" id="email" autocomplete="off" autocorrect="off" autocapitalize="off">
+<span class="formVal"></span>
+</p>
+<p class="clearfix">
+<label for="mobile">Mobile Number</label>:
+<input type="tel" pattern="[0-9]" placeholder="" id="mobile" name="mobile" onkeypress="return IsNumeric(event,'#mobile');" ondrop="return false;" onpaste="return false;">
+<span class="formVal"></span>
+</p>
+<p class="clearfix">
+<label for="locationState">State</label>:
+<select name="locationState" id="locationState">
+<option value="">Select State</option>
+</select>
+<span class="formVal"></span>
+</p>
+<p class="clearfix" id="registerCityWrap">
+<label for="locationCity">City</label>:
+
+<select name="locationCity" id="locationCity">
+<option value="">Select State First</option>
+</select>
+<span class="formVal"></span>
+</p>
+<div class="submitWrap">
+<input type="submit" value="submit">
+</div>
+<p id="formValText"></p>
+</form>
+</section>
+<div class="parallaxBGWrap parallaxRegisterSec" id="parallaxRegisterSec">
+<img class="parallaxBG parallaxRegisterBG" src="audi/images/red_8.jpg" alt="" data-0="transform: translateY(10px)" data-bottom-top="transform: translateY(10px)" data-top-bottom="transform: translateY(-200px)">
+</div>
+
+
+<section id="contact" class="contactSec sec clearfix" data-section="contact">
+<div class="wrap">
+<div class="mainCol1" data-0="transform: translate3d(0px,-100px,0)" data-bottom-top="transform: translate3d(0px,-100px,0)" data-100-top="transform: translate3d(0,0px,0)">
+<h1><span>Contact </span>Us</h1>
+<p>For bookings &amp; further information</p>
+<h3 id="contactEmail"></h3>
+<h3 id="contactWebsite"><a href="audi.html" target="_blank">Dealerships</a></h3>
+</div>
+<div class="mainCol2" data-0="transform: translate3d(0px,150px,0)" data-bottom-top="transform: translate3d(0px,150px,0)" data-100-top="transform: translate3d(0,0px,0)">
+<h3>FAQ’s</h3>
+<dl id="FAQList" class="FAQList"></dl>
+</div>
+</div>
+<div class="contactBG SecBG"></div>
+</section>
+
+</div> 
+<script src="https://code.createjs.com/easeljs-0.7.1.min.js"></script>
+<script src="https://code.createjs.com/tweenjs-0.5.1.min.js"></script>
+<script src="https://code.createjs.com/movieclip-0.7.1.min.js"></script>
+<script src="https://code.createjs.com/preloadjs-0.4.0.min.js"></script>
+<script src="audi/js/script.js"></script>
+<script src="audi/js/map.js"></script>
+
+</body>
+</html>
